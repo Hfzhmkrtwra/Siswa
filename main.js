@@ -48,7 +48,7 @@ export async function tambahSiswa(Nama, Alamat) {
     // menyimpan data ke firebase
     const refDokumen = await addDoc(collection(basisdata, "Siswa"), {
     nama: Nama, 
-    Alamat: Alamat
+    alamat: Alamat
     })
     
     // menampilkan pesan berhasil

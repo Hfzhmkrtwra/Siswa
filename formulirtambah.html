@@ -23,10 +23,27 @@
            <input type="text" class="form-control" id="inputalamat">
      </div>
      <div class="mb-3">
-       <button class="btn btn-primary">Simpan</button>
+       <button class="btn btn-primary" id= "tombolsimpan">Simpan</button>
      </div>
   </form>
   
   <a href="index.html">Kembali ke daftar siswa</a>
+  
+  <script type="module">
+    import { tambahSiswa } from "./main.js";
+    
+    $(document).ready(async function() {
+      //ambil data dari formulir
+      let Nama = $("#inputnama").fal()
+      let Alamat = $("#inputalamat").fal()
+      
+      // klik tombol tambah di pencet
+      $("#tombolsimpan").click(async function()){
+        await tambahSiswa(Nama, Alamat)
+        window,location,href = "index.html"
+        
+      }
+    })
+  </script>
 </body>
 </html>

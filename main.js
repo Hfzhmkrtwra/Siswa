@@ -1,5 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js'
-import { 
+import {
   getFirestore,
   collection,
   doc,
@@ -30,7 +30,7 @@ export async function ambilDaftarSiswa() {
   const refDokumen = collection(basisdata, "Siswa");
   const kueri = query(refDokumen, orderBy("nama"));
   const cuplikanKueri = await getDocs(kueri);
-  
+
   let hasilKueri = [];
   cuplikanKueri.forEach((dokumen) => {
     hasilKueri.push({
@@ -39,7 +39,7 @@ export async function ambilDaftarSiswa() {
       alamat: dokumen.data().alamat
     })
   })
-  
+
   return hasilKueri;
 }
 
@@ -47,19 +47,30 @@ export async function tambahSiswa(Nama, Alamat) {
   try {
     // menyimpan data ke firebase
     const refDokumen = await addDoc(collection(basisdata, "Siswa"), {
-    nama: Nama, 
-    alamat: Alamat
+      nama: Nama,
+      alamat: Alamat
     })
-    
+
     // menampilkan pesan berhasil
     console.log('berhasil menyimpan data siswa')
   } catch (error) {
     // menampilkan pesan gagal 
-    console.log('gagal menyimpan data siswa'+ error)
+    console.log('gagal menyimpan data siswa' + error)
   }
 }
 
-export async function  hapusSiswa(id) {
+export async function hapusSiswa(id) {
   await deleteDoc(doc(basisdata, "Siswa", id))
-  
+}
+
+export async function ambilSiswa(id) {
+  const refDokumen = await doc(basisdata, "Siswa", id)
+  const snapshotDokumen = await getDoc(refDokumen)
+
+  return await snapshotDokumen.data()
+}
+
+export async function ubahSiswa(id, namabaru, alamatbaru) {
+  await updateDoc(doc(basisdata, "Siswa", id), { nama: namabaru, alamat: alamatbaru })
+
 }
